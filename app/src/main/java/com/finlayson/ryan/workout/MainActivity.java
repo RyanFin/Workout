@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         //change the color of the support bar
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            getWindow().setStatusBarColor(Color.DKGRAY);
+            getWindow().setStatusBarColor(Color.parseColor("#4c0606"));
         }
 
         //change the actionbar color in java
