@@ -25,6 +25,12 @@ public class WorkoutDetailFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        //get the value of the previous workoutID
+        if(savedInstanceState != null){
+            workoutId = savedInstanceState.getLong("workout_id");
+
+        }
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_workout_detail, container, false);
     }
@@ -46,4 +52,10 @@ public class WorkoutDetailFragment extends Fragment {
     public void setWorkoutId(long id){
        this.workoutId = id;
    }
+
+    //save the value of the local variable before it gets destroyed  but change in screen configuration
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putLong("workout_id",workoutId);
+    }
 }
