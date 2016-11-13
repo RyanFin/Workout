@@ -3,15 +3,13 @@ package com.finlayson.ryan.workout;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.WindowManager;
 
-public class MainActivity extends AppCompatActivity {
-
-
-
+public class MainActivity extends AppCompatActivity implements WorkoutListFragment.WorkoutListListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,9 +26,32 @@ public class MainActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setBackgroundDrawable(new ColorDrawable(Color.BLACK));
 
-        //create a reference to the fragment
+        /*
+        //create a reference to the fragment-- HARDCODED :(
         WorkoutDetailFragment frag = (WorkoutDetailFragment) getSupportFragmentManager().findFragmentById(R.id.detail_frag);
-        frag.setWorkoutId(1);
+        frag.setWorkoutId(1);*/
 
+    }
+
+    //must override this interface method
+    @Override
+    public void itemClicked(long id) {
+        //The code to set the details for a particular workout from the listview indexed at 'id'
+
+        //TODO: Add the fragment to the FrameLayout
+        //detail fragment object created
+        WorkoutDetailFragment details = new WorkoutDetailFragment();
+        //start initial changes
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        //set the details to gather info about the clicked item in the ListView
+        details.setWorkoutId(id);
+        //replace the <FrameLayout> face with the fragment
+        ft.replace(R.id.frag_container, details);
+        //add to the back button stack, no "String name" required!!
+        ft.addToBackStack(null);
+        //add a fade transition
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+        //commit the changes
+        ft.commit();
     }
 }
